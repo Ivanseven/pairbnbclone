@@ -6,7 +6,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-
+<%# Facebook SDK for javascript %>
 
 <%# Clearance: Dynamic Button for sign in/out, n probs message for login error%>
     <% if signed_in? %>
@@ -14,6 +14,7 @@
       <%= button_to 'Sign out', sign_out_path, method: :delete %>
     <% else %>
       <%= link_to 'Sign in', sign_in_path %>
+      <%= link_to "With Facebook", "/auth/facebook" %>
     <% end %>
 
     <div id="flash">
@@ -24,6 +25,7 @@
 
 </head>
 <body>
+<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
 
 <%= yield %>
 

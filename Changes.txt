@@ -1,4 +1,5 @@
 1. New Rails App
+
 $ rails new pairbnbclone -d postgresql
 $ cd pairbnbclone
 $ git init
@@ -103,6 +104,10 @@ $ git status
 $ git commit -m "Added/Edited Clearance For User Management"
 $ git push origin Clearance
 
+
+
+
+
 3. Figaro Gem
 Added:to Gemfile
 	gem 'figaro'
@@ -114,3 +119,174 @@ $ git add .
 $ git status
 $ git commit -m "Added Figaro Gem"
 $ git push origin figaro
+
+
+
+
+4. Integrate OmniAuth Facebook with Clearance
+Added:to Gemfile
+	gem 'omniauth'
+	gem 'omniauth-facebook'
+$ bundle
+
+Added:to config/initializers
+	omniauth.rb
+Added:to omniauth.rb
+	Rails.application.config.middleware.use OmniAuth::Builder do
+    	provider :facebook, ENV['FACE_BOOK_APP_ID'], ENV['FACE_BOOK_SECRET'], scope: 'email', info_fields: 'email, picture, first_name, last_name'
+    end
+
+$ rails generate migration AddImageColumnToUsers
+Added:to AddImageColumnToUsers
+  	add_column :users, :image, :string
+
+Added:to app/models
+	authentication.rb
+Added:to authentication.rb
+	 class Authentication < ActiveRecord::Base
+
+     belongs_to :user
+
+      def self.create_with_omniauth(auth_hash)
+        create! do |auth|
+          auth.provider = auth_hash["provider"]
+          auth.uid = auth_hash["uid"]
+          auth.token = auth_hash["credentials"]["token"]
+        end
+      end
+
+      def update_token(auth_hash)
+        self.token = auth_hash["credentials"]["token"]
+        self.save
+      end
+
+    end
+
+Added:to config/routes.rb
+	get "/auth/:provider/callback" => "sessions#create_from_omniauth"
+
+
+Added:to app/controllers
+	sessions_controller.rb
+Added:to sessions_controller.rb
+	class SessionsController < Clearance::SessionsController
+
+      def create_from_omniauth
+        auth_hash = request.env["omniauth.auth"]
+
+        authentication = Authentication.find_by_provider_and_uid(auth_hash["provider"], auth_hash["uid"]) || Authentication.create_with_omniauth(auth_hash)
+        if authentication.user
+          user = authentication.user 
+          authentication.update_token(auth_hash)
+          @next = root_url
+          @notice = "Signed in!"
+        else
+          user = User.create_with_auth_and_hash(authentication,auth_hash)
+          @next = edit_user_path(user)   
+          @notice = "User created - confirm or edit details..."
+        end
+        sign_in(user)
+        redirect_to @next, :notice => @notice
+      end
+    end
+
+Added:to app/models/user.rb
+  has_many :authentications, :dependent => :destroy
+
+  def self.create_with_auth_and_hash(authentication,auth_hash)
+    create! do |u|
+      u.first_name = auth_hash["info"]["first_name"]
+      u.email = auth_hash["extra"]["raw_info"]["email"]
+      u.authentications<<(authentication)
+    end
+  end
+
+  def fb_token
+    x = self.authentications.where(:provider => :facebook).first
+    return x.token unless x.nil?
+  end
+
+  def password_optional?
+    true
+  end
+
+$ rails g migration create_authentications uid token provider user_id
+
+Added:to db/migrate/timestamp_create_authentications.rb
+	t.timestamps null: false
+
+$ bundle exec rake db:migrate
+
+
+Added:to config/routes.rb
+	resources :users, only: [:show, :edit, :update, :destroy]
+
+Goto https://developers.facebook.com
+Add new app
+Add url: http://localhost:3000
+
+Added:to application.yml
+	FACE_BOOK_APP_ID: '(whatever your facebook app id is)'
+	FACE_BOOK_SECRET: '(whatever your facebook secret is)'
+
+Added:to app/views/layouts/application.html.erb
+NOTE: removed
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : "<%= ENV['FACE_BOOK_APP_ID']%>",
+      xfbml      : true,
+      version    : 'v2.7'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+Added:to application.html.erb
+    <%= link_to "With Facebook", "/auth/facebook" %>
+
+Added:to app/models/user.rb
+    u.last_name = auth_hash["info"]["last_name"]
+    u.image = auth_hash["extra"]["raw_info"]["picture"]["data"].url
+    u.email = auth_hash["extra"]["raw_info"]["email"]
+	u.encrypted_password = ('A'..'z').to_a.sample(8).join(",")
+
+
+Added:to app/controller/users_controller.rb
+	def edit
+		@user = User.find(current_user.id)
+	end
+	def update
+		@user = User.find(current_user.id)
+		@user.update(user_params)
+		redirect_to root_path
+	end
+
+
+Added:to app/views/users 
+	edit.html.erb
+Added:to edit.html.erb
+	<%= form_for @user do |form| %>
+	<div class="text-field">
+	<%= form.label :first_name %>
+	<%= form.text_field :first_name %>
+	</div>
+	<div class="text-field">
+	<%= form.label :last_name %>
+	<%= form.text_field :last_name%>
+	</div>
+	<div class="text-field">
+	  <%= form.label :email %>
+	  <%= form.text_field :email, type: 'email' %>
+	</div>
+	<div class="submit-field">
+	  <%= form.submit %>
+	</div>
+	<% end %>
