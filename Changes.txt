@@ -49,6 +49,10 @@ $ rails generate clearance:views
 $ rails generate controller Welcome index
 
 $ rails generate migration AddUserColumns
+Added:to migration AddUserColumns
+	add_column :users, :first_name, :string
+    add_column :users, :last_name, :string
+
 $ rake db:migrate
 
 Added:to app/views/users/_form.html.erb
@@ -91,4 +95,22 @@ Renamed:From
 	resources :users, controller:"clearance/users"
 Renamed:To
 	resources :users, controller:"users"
-3.
+
+
+$ git checkout -b Clearance
+$ git add .
+$ git status
+$ git commit -m "Added/Edited Clearance For User Management"
+$ git push origin Clearance
+
+3. Figaro Gem
+Added:to Gemfile
+	gem 'figaro'
+$ bundle install
+$ bundle exec figaro install
+
+$ git checkout -b Clearance
+$ git add .
+$ git status
+$ git commit -m "Added/Edited Clearance For User Management"
+$ git push origin Clearance

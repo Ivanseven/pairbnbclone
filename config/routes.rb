@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
   root 'welcome#index'
-  
+
 # resources the same as the get/delete/etc. Try rake routes
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
 
+# controller defaults to the resources name, therefore is not required here
   resources :users, controller:"users", only: [:create] do
     resource :password,
       controller: "clearance/passwords",
