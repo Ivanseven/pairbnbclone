@@ -1,0 +1,94 @@
+1. New Rails App
+$ rails new pairbnbclone -d postgresql
+$ cd pairbnbclone
+$ git init
+$ git add .
+$ git commit -m "Added Rails App"
+$ git remote add origin https://github.com/Ivanseven/pairbnbclone.git
+$ git push -u origin master
+
+Added:to config/routes.rb
+  root 'welcome#index'
+
+2. Clearance Gem
+INSTALLATION
+Added:to Gemfile
+	gem 'clearance'
+
+$ bundle
+
+$ rake db:create
+
+$ rails generate clearance:install
+	Inserts Clearance::User into your User model
+	Inserts Clearance::Controller into your ApplicationController
+	Creates an initializer file to allow further configuration.
+	Creates a migration file that either create a users table or adds any necessary columns to the existing table.
+
+Added:to config/environments/test.rb, config/environments/development.rb
+	config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+Added:to views/layouts/application.html.erb
+	<% if signed_in? %>
+      Signed in as: <%= current_user.email %>
+      <%= button_to 'Sign out', sign_out_path, method: :delete %>
+    <% else %>
+      <%= link_to 'Sign in', sign_in_path %>
+    <% end %>
+
+    <div id="flash">
+      <% flash.each do |key, value| %>
+        <div class="flash <%= key %>"><%= value %></div>
+      <% end %>
+    </div>
+
+$ rake db:migrate
+
+$ rails generate clearance:routes
+$ rails generate clearance:views
+$ rails generate controller Welcome index
+
+$ rails generate migration AddUserColumns
+$ rake db:migrate
+
+Added:to app/views/users/_form.html.erb
+
+	<div class="text-field">
+	<%= form.label :first_name %>
+	<%= form.text_field :first_name%>
+	</div>
+
+	<div class="text-field">
+	<%= form.label :last_name %>
+	<%= form.text_field :last_name%>
+	</div>
+
+$ rails generate controller Users
+Added:to app/controllers/users_controller.rb
+	private
+
+	def user_from_params
+		User.new(user_params)
+		first_name = user_params.delete(:first_name)
+		last_name = user_params.delete(:last_name)
+		email = user_params.delete(:email)
+	    password = user_params.delete(:password)
+
+	    Clearance.configuration.user_model.new(user_params).tap do |user|
+			user.first_name = first_name
+			user.last_name = last_name
+			user.email = email
+			user.password = password
+	    end		
+	end
+
+	def user_params
+		params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+	end
+
+Added:to config/routes.rb
+Renamed:From
+	resources :users, controller:"clearance/users"
+Renamed:To
+	resources :users, controller:"users"
+3.
