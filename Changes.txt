@@ -109,8 +109,8 @@ Added:to Gemfile
 $ bundle install
 $ bundle exec figaro install
 
-$ git checkout -b Clearance
+$ git checkout -b Figaro
 $ git add .
 $ git status
-$ git commit -m "Added/Edited Clearance For User Management"
-$ git push origin Clearance
+$ git commit -m "Added Figaro Gem"
+$ git push origin Figaro
