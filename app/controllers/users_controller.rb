@@ -1,5 +1,13 @@
 class UsersController < Clearance::UsersController
-	
+	def edit
+		@user = User.find(current_user.id)
+	end
+	def update
+		@user = User.find(current_user.id)
+		@user.update(user_params)
+		redirect_to root_path
+	end
+
 	private
 
 	def user_from_params
