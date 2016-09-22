@@ -319,4 +319,6 @@ $ rails generate model Listing --skip
 $ rails generate model ListingAmenity --skip
 $ rails generate model Amenity --skip
 
-6. 
+6. Navbar, buttons
+	CSS
+7. Image Upload
