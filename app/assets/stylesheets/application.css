@@ -14,7 +14,7 @@
  *= require_self
  */
 
-
+/* FACEBOOK BUTTON*/
 .facebook_button {
 	background-color: #3b5998;
 	background-image: url(http://icons.iconarchive.com/icons/danleech/simple/512/facebook-icon.png);
@@ -24,6 +24,7 @@
 	height: 35px;
 	width: 205px;
 	border-radius: 4px;
+	margin:8px;
 }
 .facebook_button a{
 	color:white;
@@ -32,4 +33,43 @@
 	padding: 10px 10px;
     font-family:"Merriweather Sans", sans-serif;
     font-size: 14px;
+}
+
+/* NAVBAR BUTTON*/
+.navbar_button {
+	margin:10px;
+}
+.navbar_button a {
+    border-style: solid;
+    border-width: 1px;
+    border-color: rgba(50,100,25,0.5);
+    background-color: rgba(50,100,25,1);
+    padding: 5px;
+    display:block;
+}
+
+/*NAVBAR*/
+
+#navbar {
+	background-color: rgba(50,100,25,1);
+	height: 50px;
+}
+#navbar ul{
+	list-style: none;
+}
+
+
+
+#navbar li a{
+	color:white;
+	text-decoration: none;
+}
+#navbar li {
+	float:left;
+	display: block;
+}
+#home_icon {
+	max-height: 35px;
+	max-width: 35px;
+
 }
