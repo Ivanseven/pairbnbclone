@@ -290,3 +290,22 @@ Added:to edit.html.erb
 	  <%= form.submit %>
 	</div>
 	<% end %>
+
+$ git checkout -b FacebookIntegration
+$ git status
+$ git add .
+$ git status
+$ git commit -m "Added omniauth, Omniauth-facebook, facebook sign in"
+$ git push origin FacebookIntegration
+
+
+
+
+5. Create Listings
+$ rails generate migration CreateListings
+$ rails generate migration CreateListing_Amenities
+$ rails generate migration CreateAmenities
+
+$ rails generate model Listing --skip
+$ rails generate model ListingAmenity --skip
+$ rails generate model Amenity --skip
