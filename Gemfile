@@ -41,7 +41,7 @@ gem 'figaro'
 gem 'omniauth'
 gem 'omniauth-facebook'
 # Image Uploader
-gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem "mini_magick"
 
 group :development, :test do

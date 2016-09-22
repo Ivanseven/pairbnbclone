@@ -330,15 +330,50 @@ $ rails generate model Amenity --skip
 7. Image Upload
 guide:https://code.tutsplus.com/tutorials/rails-image-upload-using-carrierwave-in-a-rails-app--cms-25183
 Added:to Gemfile
-	gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
+	gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 	gem "mini_magick"
 
 $ bundle
-$ rails generate uploader Avatar
-$ rails g migration add_avatar_to_users avatar:string
+$ rails generate uploader Image
+
+If you already have the migration, skip this
+$ rails g migration add_image_to_users image:string
 $ rake db:migrate
+
 
 Added:to config/initializers
 	carrier_wave.rb
 Added:to carrier_wave.rb
 	require 'carrierwave/orm/activerecord'
+
+
+Uncomment:in uploaders/image_uploader.rb
+	include CarrierWave::MiniMagick
+
+	version :thumb do
+	  process :resize_to_fill => [50, 50]
+	end
+
+	def extension_white_list
+	  %w(jpg jpeg gif png)
+	end
+
+Added:to models/User.rb
+	mount_uploader :image, ImageUploader
+Added:to views/users/edit.html.erb
+	<div class="field">
+	Current
+	<%= form.label :image %><br>
+	<%= image_tag @user.image.thumb.url %><br>
+	<%= form.file_field :image %>
+	</div>
+
+Edited:to models/user.rb
+	u.remote_image_url = auth_hash["extra"]["raw_info"]["picture"]["data"].url
+
+Added Profile_icon To Navbar
+Added Edit User Button To Navbar
+Added CSS for Profile_icon
+
+$ rails generate controller Listings
+Make Views
