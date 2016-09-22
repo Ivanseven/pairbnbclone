@@ -42,6 +42,10 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (9.0.5)
+    carrierwave (1.0.0.beta)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
     clearance (1.14.2)
       bcrypt
       email_validator (~> 1.4)
@@ -83,6 +87,7 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
+    mini_magick (4.5.1)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
@@ -176,11 +181,13 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  carrierwave (>= 1.0.0.beta, < 2.0)
   clearance
   coffee-rails (~> 4.1.0)
   figaro
   jbuilder (~> 2.0)
   jquery-rails
+  mini_magick
   omniauth
   omniauth-facebook
   pg (~> 0.15)

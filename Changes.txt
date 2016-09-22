@@ -319,6 +319,26 @@ $ rails generate model Listing --skip
 $ rails generate model ListingAmenity --skip
 $ rails generate model Amenity --skip
 
-6. Navbar, buttons
+
+
+
+6. Navbar; Navbar, Facebook buttons
 	CSS
+
+
+
 7. Image Upload
+guide:https://code.tutsplus.com/tutorials/rails-image-upload-using-carrierwave-in-a-rails-app--cms-25183
+Added:to Gemfile
+	gem 'carrierwave', '>= 1.0.0.beta', '< 2.0'
+	gem "mini_magick"
+
+$ bundle
+$ rails generate uploader Avatar
+$ rails g migration add_avatar_to_users avatar:string
+$ rake db:migrate
+
+Added:to config/initializers
+	carrier_wave.rb
+Added:to carrier_wave.rb
+	require 'carrierwave/orm/activerecord'
