@@ -13,3 +13,23 @@
  *= require_tree .
  *= require_self
  */
+
+
+.facebook_button {
+	background-color: #3b5998;
+	background-image: url(http://icons.iconarchive.com/icons/danleech/simple/512/facebook-icon.png);
+	background-size: 35px 35px;
+	background-repeat: no-repeat;
+	background-position: right;
+	height: 35px;
+	width: 205px;
+	border-radius: 4px;
+}
+.facebook_button a{
+	color:white;
+	display:block;
+	text-decoration: none;
+	padding: 10px 10px;
+    font-family:"Merriweather Sans", sans-serif;
+    font-size: 14px;
+}
