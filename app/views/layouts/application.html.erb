@@ -2,6 +2,8 @@
 <html>
 <head>
   <title>Pairbnbclone</title>
+<!-- Icon for Head-->
+  <link rel="icon" type="image/jpeg" href="sail_boat1600.png"/>
 <%# Linking Files%>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -9,16 +11,30 @@
 <%# Facebook SDK for javascript %>
 
 <%# Clearance: Dynamic Button for sign in/out, n probs message for login error%>
+  <div id="navbar">
+  <ul>
+  <li>
+  <%= link_to image_tag("sail_boat1600.png", id:"home_icon") + "SeaCnC", root_path %>
+  </li>
     <% if signed_in? %>
-      Signed in as: <%= current_user.email %>
-      <%= button_to 'Sign out', sign_out_path, method: :delete %>
+      <li>
+        Signed in as: <%= current_user.email %>
+        <%= button_to 'Sign out', sign_out_path, method: :delete %>
+      </li>
     <% else %>
-      <%= link_to 'Sign in', sign_in_path %>
-      <div class="facebook_button">
-      <%= link_to "Sign In With Facebook", "/auth/facebook" %>
-      </div>
+      <li>
+        <div class="facebook_button">
+        <%= link_to "Sign In With Facebook", "/auth/facebook" %>
+        </div>
+      </li>
+      <li>
+        <div class="navbar_button">
+        <%= link_to 'Sign in', sign_in_path %>
+        </div>
+      </li>
     <% end %>
-
+</ul>
+</div>
     <div id="flash">
       <% flash.each do |key, value| %>
         <div class="flash <%= key %>"><%= value %></div>
