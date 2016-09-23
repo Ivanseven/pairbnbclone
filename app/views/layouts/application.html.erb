@@ -14,7 +14,9 @@
       <%= button_to 'Sign out', sign_out_path, method: :delete %>
     <% else %>
       <%= link_to 'Sign in', sign_in_path %>
-      <%= link_to "With Facebook", "/auth/facebook" %>
+      <div class="facebook_button">
+      <%= link_to "Sign In With Facebook", "/auth/facebook" %>
+      </div>
     <% end %>
 
     <div id="flash">
@@ -25,7 +27,6 @@
 
 </head>
 <body>
-<div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
 
 <%= yield %>
 

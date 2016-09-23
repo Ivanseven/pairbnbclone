@@ -303,9 +303,20 @@ $ git push origin FacebookIntegration
 
 5. Create Listings
 $ rails generate migration CreateListings
-$ rails generate migration CreateListing_Amenities
+Added:to CreateListings
+		t.string :name, :about, :location, :bed_type, :property_type, :room_type, :check_in_time, :check_out_time, :reserved_dates
+		t.integer :owner_id, :price, :capacity, :bathrooms, :bedrooms, :beds, :instant_book
+		t.timestamps
+
+$ rails generate migration CreateListingAmenities
+Added:to CreateListing_Amenities
+    	t.integer :listing_id, :amenity_id
 $ rails generate migration CreateAmenities
+Added:to CreateAmenities
+    	t.string :name, :description, :category
 
 $ rails generate model Listing --skip
 $ rails generate model ListingAmenity --skip
 $ rails generate model Amenity --skip
+
+6. 
