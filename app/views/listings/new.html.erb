@@ -1,0 +1,9 @@
+<p>Tell Us About Your Place!</p>
+
+<%= form_for @listing do |listing|%>
+<%= render partial: '/listings/listing', object: listing %>
+
+<div>
+  <%= listing.submit %>
+</div>
+<% end %>

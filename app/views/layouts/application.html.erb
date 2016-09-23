@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Pairbnbclone</title>
+  <title>SeaCnC</title>
 <!-- Icon for Head-->
   <link rel="icon" type="image/jpeg" href="sail_boat1600.png"/>
 <%# Linking Files%>
@@ -9,7 +9,15 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 <%# Facebook SDK for javascript %>
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <%# Clearance: Dynamic Button for sign in/out, n probs message for login error%>
   <div id="navbar">
   <ul>
@@ -20,6 +28,12 @@
       <li>
         Signed in as: <%= current_user.email %>
         <%= button_to 'Sign out', sign_out_path, method: :delete %>
+      </li>
+      <li><%= image_tag current_user.image.thumb.url, :id => "profile_icon" %></li>
+      <li>
+      <div class="navbar_button">
+      <%= link_to "Edit User", edit_user_path(current_user) %>
+      </div>
       </li>
     <% else %>
       <li>

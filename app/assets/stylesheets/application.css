@@ -42,10 +42,17 @@
 .navbar_button a {
     border-style: solid;
     border-width: 1px;
+    /*Remove width and expand button?*/
     border-color: rgba(50,100,25,0.5);
     background-color: rgba(50,100,25,1);
     padding: 15px 10px;
     display:block;
+}
+
+/* PROFILE ICON */
+#profile_icon {
+	border-radius: 50px;
+	/*Circle Profile Icon*/
 }
 
 /*NAVBAR*/
@@ -57,8 +64,6 @@
 #navbar ul{
 	list-style: none;
 }
-
-
 
 #navbar li a{
 	color:white;
