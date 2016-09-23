@@ -1,11 +1,11 @@
 class ListingsController < ApplicationController
+	before_action :set_listing , only: [:show, :edit, :update, :add_images]
 
 	def index
 		
 	end
 
 	def show
-		@listing = Listing.find(params[:id])
 	end
 
 	def new
@@ -32,33 +32,46 @@ class ListingsController < ApplicationController
 	end
 
 	def edit
-		@listing = Listing.find(params[:id])
 	end
 
 	def update
-		@listing = Listing.find(params[:id])
 		@listing.update(listing_params)
-		if params[:listing][:remove_images]
-			@listing.remove_images!
-			@listing.save
+		old_listing = @listing
+		byebug
+		if params[:listing][:remove_images] == "1"
+			puts "removed"
+			remove_images
 		end
+
 		if params[:listing][:images]
-		add_images
+			puts "Added"
+			add_images(old_listing)
 		end
+
 		redirect_to listing_path(params[:id])
 	end
 
-	def add_images
-		@listing = Listing.find(params[:id])
+	def remove_images
+		@listing.remove_images!
+		@listing.save
+	end
+
+	def add_images(old_listing)
 		images = []
-		if @listing.images
-		@listing.images.each {|image| images << image}
+		if old_listing.images
+		old_listing.images.each {|image| images << image}
 		end
 		params[:listing][:images].each { |image| images << image}
 		@listing.update(images: images)
 	end
 
 	def destroy
-		@listing
+		@listing.destroy
+		redirect_to root_path
 	end
+
+	def set_listing
+		@listing = Listing.find(params[:id])
+
+	end 
 end
