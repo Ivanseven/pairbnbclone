@@ -1,5 +1,58 @@
-
-<div>
 <%= listing.label :name %>
 <%= listing.text_field :name %>
-</div>
+<br>
+<%= listing.label :about %>
+<%= listing.text_field :about %>
+<br>
+<%= listing.label :location %>
+<%= listing.text_field :location %>
+<br>
+<%= listing.label :bed_type %>
+<%= listing.text_field :bed_type %>
+<br>
+<%= listing.label :property_type %>
+<%= listing.text_field :property_type %>
+<br>
+<%= listing.label :room_type %>
+<%= listing.text_field :room_type %>
+<br>
+<%= listing.label :check_in_time %>
+<%= listing.text_field :check_in_time %>
+<br>
+<%= listing.label :check_out_time %>
+<%= listing.text_field :check_out_time %>
+<br>
+<%= listing.label :reserved_dates %>
+<%= listing.text_field :reserved_dates %>
+<br>
+<%= listing.label :price %>
+<%= listing.text_field :price %>
+<br>
+<%= listing.label :capacity %>
+<%= listing.text_field :capacity %>
+<br>
+<%= listing.label :bathrooms %>
+<%= listing.text_field :bathrooms %>
+<br>
+<%= listing.label :bedrooms %>
+<%= listing.text_field :bedrooms %>
+<br>
+<%= listing.label :beds %>
+<%= listing.text_field :beds %>
+<br>
+<%= listing.label :instant_book %>
+<%= listing.text_field :instant_book %>
+<br>
+<%= listing.label :remove_images %>
+<%= listing.check_box :remove_images %>
+<br>
+<% if @listing.images != nil %>
+<% @listing.images %>
+<% @listing.images.each do |image| %>
+<%= image_tag image.url %>
+<br>
+<% end %>
+<% end %>
+
+<strong>Upload</strong> <%= listing.label :images %>
+<%= listing.file_field :images, multiple: true %>

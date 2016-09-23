@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20160922112339) do
     t.string   "check_in_time"
     t.string   "check_out_time"
     t.string   "reserved_dates"
-    t.integer  "owner_id"
+    t.integer  "user_id"
     t.integer  "price"
     t.integer  "capacity"
     t.integer  "bathrooms"

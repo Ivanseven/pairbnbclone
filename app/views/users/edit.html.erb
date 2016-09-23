@@ -1,9 +1,10 @@
-<%# form_for @user, url: user_path(@user), method: :patch do |form| %>
+<%= form_for @user, url: user_path(@user), method: :patch do |form| %>
 <%# form_for @user do |form| %>
 <div class="field">
 Current
 <%= form.label :image %><br>
-<%= image_tag @user.image.thumb.url %><br>
+<%# image_tag @user.image.thumb.url %><br>
+<%= image_tag @user.image.url %><br>
 <%= form.file_field :image %>
 </div>
 <div class="text-field">

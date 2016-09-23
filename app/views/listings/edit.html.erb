@@ -1,0 +1,4 @@
+<%= form_for @listing do |listing|%>
+<%= render partial: '/listings/listing', object: listing %>
+<%= listing.submit %>
+<% end %>

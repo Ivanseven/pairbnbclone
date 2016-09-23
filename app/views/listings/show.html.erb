@@ -1,0 +1,44 @@
+<% if current_user.id == @listing.user_id %>
+<%= link_to "Edit Listing", edit_listing_path %>
+<% end %>
+<br>
+<% if @listing.images.count != 0 %>
+<% @listing.images.each do |image| %>
+<%= image_tag image.url %>
+<br>
+<% end %>
+<% end %>
+<%# @listing.images.url %>
+
+
+<br>
+Name:<%= @listing.name %>
+<br>
+About:<%= @listing.about %>
+<br>
+Location:<%= @listing.location %>
+<br>
+Bed Type:<%= @listing.bed_type %>
+<br>
+Property type:<%= @listing.property_type %>
+<br>
+Room type:<%= @listing.room_type %>
+<br>
+Check In:<%= @listing.check_in_time %>
+<br>
+Check Out:<%= @listing.check_out_time %>
+<br>
+Reserved Dates:<%= @listing.reserved_dates %>
+<br>
+Capacity:<%= @listing.capacity %>
+<br>
+Bathrooms:<%= @listing.bathrooms %>
+<br>
+Bedrooms:<%= @listing.bedrooms %>
+<br>
+Beds:<%= @listing.beds %>
+<br>
+Instant Book:<%= @listing.instant_book %>
+<br>
+Price:<%= @listing.price %>
+<br>

@@ -305,7 +305,7 @@ $ git push origin FacebookIntegration
 $ rails generate migration CreateListings
 Added:to CreateListings
 		t.string :name, :about, :location, :bed_type, :property_type, :room_type, :check_in_time, :check_out_time, :reserved_dates
-		t.integer :owner_id, :price, :capacity, :bathrooms, :bedrooms, :beds, :instant_book
+		t.integer :user_id, :price, :capacity, :bathrooms, :bedrooms, :beds, :instant_book
 		t.timestamps
 
 $ rails generate migration CreateListingAmenities
@@ -377,3 +377,5 @@ Added CSS for Profile_icon
 
 $ rails generate controller Listings
 Make Views
+
+Delaying Changes...
