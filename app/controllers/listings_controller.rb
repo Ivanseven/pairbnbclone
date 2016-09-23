@@ -37,7 +37,6 @@ class ListingsController < ApplicationController
 	def update
 		@listing.update(listing_params)
 		old_listing = @listing
-		byebug
 		if params[:listing][:remove_images] == "1"
 			puts "removed"
 			remove_images
