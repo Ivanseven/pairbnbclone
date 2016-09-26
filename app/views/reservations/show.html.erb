@@ -1,0 +1,19 @@
+<br>
+<%= link_to "Edit", edit_reservation_path %>
+<% if current_user.id == @reservation.user_id %>
+<%= form_for @reservation, method: :delete do |reservation|%>
+<%= reservation.submit value: "Cancel reservation"%>
+<% end %>
+<% end %>
+<%# Validation%>
+
+<br>
+<% if !@reservation.listing.images[0].nil? %>
+<%= image_tag @reservation.listing.images[0].thumb.url %>
+<% end %>
+<br>
+Persons: <%= @reservation.capacity %>
+<br>
+Start Date: <%= @reservation.start_date %>
+<br>
+End Date: <%= @reservation.end_date %>
