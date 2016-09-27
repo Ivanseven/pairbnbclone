@@ -1,0 +1,12 @@
+<% @listing.each do |listing| %>
+<% if listing.images != [] %>
+<%= image_tag listing.images.first.thumb.url %>
+<% end %>
+<br>
+Name:<%= listing.name %>
+<br>
+Price:<%= listing.price %>
+<br>
+Location:<%= listing.location %>
+<%= link_to "Find Out More", listing_path(listing) %>
+<% end %>

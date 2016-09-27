@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi, <%= @host.first_name %></h1>
+    <p>
+    We are informing you that your listing, <%= @listing.name%> has been reserved by <%= @user.first_name %> <%= @user.last_name %>
+    <br>
+    </p>
+    <p>
+      To find out more, just follow this link: <%= @url %>.
+    </p>
+    <p>Thanks for hosting and have a great day!</p>
+  </body>
+</html>
