@@ -6,25 +6,36 @@ class ReservationsController < ApplicationController
 			if start_date >= Date.today
 				book_range = start_date..end_date
 				reserve = Reservation.where(listing_id:params[:reservation][:listing_id])
-				reserve.each do |date|
+				valid = true
+				reservation_range = []
+				reserve.each do |reservation|
+					reservation_range << (Date.parse(reservation.start_date)..Date.parse(reservation.end_date))
+				end
+				reservation_range.each do |date|
 					if date.overlaps?book_range
-						invalid = false
+						valid = false
 					end
 				end
-				if invalid != false
+				if valid == true
 				@reservation = current_user.reservations.create(reservation_params)
+				# Send a email to host / guest
+				listed = @reservation.listing
+				host = listed.user
+				UserMailer.reservation_email(host,current_user, listed ).deliver_later
+
 				redirect_to root_path
 				else
 					session[:reservation_book_error] = "Sorry! Those dates have already been booked or reserved!" 
+					redirect_to :back
 				end
 			else
 				session[:reservation_book_error] = "Too late! Time Travel not possible." 
+				redirect_to :back
 			end
 		else
 			session[:reservation_book_error] = "End date is earlier than start date! Don't time travel!" 
+			redirect_to :back
 		end
-
-		redirect_to :back
 	end
 	def index
 		@reservations = current_user.reservations

@@ -43,7 +43,10 @@ gem 'omniauth-facebook'
 # Image Uploader
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem "mini_magick"
+# Preview Email
+gem "letter_opener", :group => :development
 
+gem 'sidekiq'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

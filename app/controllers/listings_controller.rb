@@ -17,7 +17,7 @@ class ListingsController < ApplicationController
 	end
 
 	def create
-		byebug
+		# byebug
 		@listing = current_user.listings.create(listing_params)
 		# @listing = Listing.new(listing_params)
 		# @listing.user_id = current_user.id
