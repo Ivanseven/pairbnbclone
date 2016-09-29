@@ -1,6 +1,19 @@
 <h1>Welcome#index</h1>
 <p>Find me in app/views/welcome/index.html.erb</p>
 
-
 <%= link_to "New Listing", new_listing_path  %>
 <%= link_to "All Listings", listings_path %>
+
+<h4><STRONG>Latest NEWS</STRONG></h4>
+<p>Vagabonds in demand</p>
+<p>Hobos on strike, underpopulation results in desperate mesasures</p>
+<p>Ghosttowns increasing, nomads are not mad!</p>
+<p>Homes in need of living</p>
+<p>Living rooms terrified, dead rooms reported</p>
+
+
+<%= form_tag(search_path, method:"get", id:"search-form") do %>
+<%= text_field_tag :search, params[:search], placeholder:"Find a Home!" %>
+<%= number_field_tag :price, params[:price], placeholder:"Minimum price" %>
+<%= submit_tag "Search!" %>
+<% end %>

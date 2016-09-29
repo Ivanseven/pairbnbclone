@@ -1,7 +1,8 @@
+  require 'sidekiq/web'
 Rails.application.routes.draw do
 
-  root 'welcome#index'
 
+  mount Sidekiq::Web => '/sidekiq'
 # resources the same as the get/delete/etc. Try rake routes
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
@@ -23,7 +24,13 @@ Rails.application.routes.draw do
   # Facebook Integration
   get "/auth/:provider/callback" => "sessions#create_from_omniauth"
   resources :users, only: [:show, :edit, :update, :destroy] 
+  post "/braintree/checkout" => "braintree#checkout"
 
+  resources :payments, only: [:new, :create]
+
+  get "/search" => "welcome#search"
+
+  root 'welcome#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -78,4 +85,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
 end

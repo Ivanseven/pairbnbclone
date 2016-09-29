@@ -1,13 +1,12 @@
 class ListingsController < ApplicationController
 	before_action :set_listing , only: [:show, :edit, :update, :add_images, :destroy]
-
 	def index
 		@listing = Listing.all
 	end
 
 	def show
-		@booking_error = session[:reservation_book_error]
-		session[:reservation_book_error] = nil
+		# @booking_error = session[:reservation_book_error]
+		# session[:reservation_book_error] = nil
 		@reservation = Reservation.new
 	end
 
@@ -17,7 +16,6 @@ class ListingsController < ApplicationController
 	end
 
 	def create
-		byebug
 		@listing = current_user.listings.create(listing_params)
 		# @listing = Listing.new(listing_params)
 		# @listing.user_id = current_user.id

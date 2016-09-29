@@ -1,9 +1,10 @@
 class ReservationJob < ActiveJob::Base
   queue_as :default
+  	# include Sidekiq::Worker
+  def perform(host, listing, user)
 
-  def perform(*args)
     # Do something later
-    byebug
-  	UserMailer.reservation_email(args[0], args[1], args[2] ).deliver_later
+ 	UserMailer.reservation_email(host, listing, user).deliver_later
+
   end
 end

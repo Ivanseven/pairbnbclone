@@ -44,6 +44,15 @@ gem 'omniauth-facebook'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem "mini_magick"
 
+# Multitasking
+gem 'sidekiq'
+# Transactions
+gem 'braintree'
+# gem "braintree", "~> 2.66.0"
+
+# Search Functions
+gem 'searchkick'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

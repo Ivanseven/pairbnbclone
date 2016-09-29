@@ -4,4 +4,5 @@ class Listing < ActiveRecord::Base
 	has_many :amenities, through: :listing_amenities
 	belongs_to :user
 	has_many :reservations, dependent: :destroy
+	searchkick
 end

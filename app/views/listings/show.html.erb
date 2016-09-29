@@ -1,5 +1,5 @@
 <br>
-<h3><%= @booking_error%></h3>
+<h3><%= @flash%></h3>
 <% if @listing.images.count != 0 %>
 <% @listing.images.each do |image| %>
 <%= image_tag image.url %>

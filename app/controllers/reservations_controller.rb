@@ -21,19 +21,21 @@ class ReservationsController < ApplicationController
 				# Send a email to host / guest
 				listed = @reservation.listing
 				host = listed.user
-				ReservationJob.perform_later host, listed, current_user
-
-				redirect_to root_path
+				ReservationJob.perform_later(host, listed, current_user)
+				# UserMailer.reservation_email(host, current_user, listed).deliver_later
+				# UserMailer.perform_in(3.seconds)
+				# .reservation_email(host, listed, current_user)
+				redirect_to new_payment_path
 				else
-					session[:reservation_book_error] = "Sorry! Those dates have already been booked or reserved!" 
+					flash[:reservation_book_error] = "Sorry! Those dates have already been booked or reserved!" 
 					redirect_to :back
 				end
 			else
-				session[:reservation_book_error] = "Too late! Time Travel not possible." 
+				flash[:reservation_book_error] = "Too late! Time Travel not possible." 
 				redirect_to :back
 			end
 		else
-			session[:reservation_book_error] = "End date is earlier than start date! Don't time travel!" 
+			flash[:reservation_book_error] = "End date is earlier than start date! Don't time travel!" 
 			redirect_to :back
 		end
 	end
