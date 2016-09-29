@@ -46,6 +46,17 @@
 <%= listing.label :remove_images %>
 <%= listing.check_box :remove_images %>
 <br>
+<%= listing.label :amenity %>
+<%= listing.select :amenity_ids, Amenity.all.collect{|m| [m.name,m.id]}, { }, {:multiple => true, include_blank: false}%>
+<!-- <br> -->
+<!-- An amenity isn't listed? Add one! -->
+<!-- <br> -->
+<%# form_for @amenity do |amenity|%>
+<%# amenity.text_field :name %>
+<%# amenity.submit value:"Add Amenity" %>
+<%# end %>
+
+<br>
 <% if @listing.images != nil %>
 <% @listing.images %>
 <% @listing.images.each do |image| %>

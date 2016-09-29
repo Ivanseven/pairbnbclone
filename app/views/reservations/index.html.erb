@@ -1,0 +1,22 @@
+<h1>Reservations</h1>
+<% @reservations.each do |reservation|%>
+<% if !reservation.listing.images[0].nil? %>
+<%= image_tag reservation.listing.images[0].thumb.url %>
+<% end %>
+<br>
+Place: <%= reservation.listing.name %>
+<br>
+Location: <%= reservation.listing.location %>
+<br>
+Persons: <%= reservation.capacity %>
+<br>
+Start Date: <%= reservation.start_date %> 
+<br>
+End Date: <%= reservation.end_date %>
+<br>
+Created time: <%= reservation.created_at %>
+<br>
+Updated time: <%= reservation.updated_at %> 
+<br>
+<%= link_to "This", reservation_path(reservation.id)%>
+<% end %>

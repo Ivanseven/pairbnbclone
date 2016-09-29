@@ -1,23 +1,23 @@
 class ListingsController < ApplicationController
-	before_action :set_listing , only: [:show, :edit, :update, :add_images]
+	before_action :set_listing , only: [:show, :edit, :update, :add_images, :destroy]
 
 	def index
-		
+		@listing = Listing.all
 	end
 
 	def show
+		@booking_error = session[:reservation_book_error]
+		session[:reservation_book_error] = nil
+		@reservation = Reservation.new
 	end
 
 	def new
 		@listing ||= Listing.new
-	end
-
-	def listing_params
-		# params.require(:listing).permit(:name, :about, :location, :bed_type, :property_type, :room_type, :check_in_time, :check_out_time, :reserved_dates, :price, :capacity, :bathrooms, :bedrooms, :beds, :instant_book, {images: []})
-		params.require(:listing).permit(:name, :about, :location, :bed_type, :property_type, :room_type, :check_in_time, :check_out_time, :reserved_dates, :price, :capacity, :bathrooms, :bedrooms, :beds, :instant_book)
+		@amenity = Amenity.new
 	end
 
 	def create
+		# byebug
 		@listing = current_user.listings.create(listing_params)
 		# @listing = Listing.new(listing_params)
 		# @listing.user_id = current_user.id
@@ -37,7 +37,6 @@ class ListingsController < ApplicationController
 	def update
 		@listing.update(listing_params)
 		old_listing = @listing
-		byebug
 		if params[:listing][:remove_images] == "1"
 			puts "removed"
 			remove_images
@@ -52,6 +51,7 @@ class ListingsController < ApplicationController
 	end
 
 	def remove_images
+		# @listing from update
 		@listing.remove_images!
 		@listing.save
 	end
@@ -74,4 +74,10 @@ class ListingsController < ApplicationController
 		@listing = Listing.find(params[:id])
 
 	end 
+	private
+
+	def listing_params
+		# params.require(:listing).permit(:name, :about, :location, :bed_type, :property_type, :room_type, :check_in_time, :check_out_time, :reserved_dates, :price, :capacity, :bathrooms, :bedrooms, :beds, :instant_book, {images: []})
+		params.require(:listing).permit(:name, :about, :location, :bed_type, :property_type, :room_type, :check_in_time, :check_out_time, :reserved_dates, :price, :capacity, :bathrooms, :bedrooms, :beds, :instant_book, amenity_ids: [])
+	end
 end
